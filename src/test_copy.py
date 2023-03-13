@@ -1,7 +1,6 @@
 
 if __name__ == '__main__':
-    import datetime
-    from datetime import timedelta
+    from datetime import datetime, date, timedelta
     import pytz
     import pendulum
     from dwh.report.revenue_accounting import Revenue_accounting
@@ -33,47 +32,23 @@ if __name__ == '__main__':
         datee = datetime.datetime.strptime(dt, "%Y-%m-%d")
         year = datee.year
         return year
-    today = datetime.date.today()
+    today = date.today()
     yesterday = today - timedelta(days=1)
     yesterday = yesterday.strftime("%Y-%m-%d")
     current_woy = parse_dt_to_week(yesterday)
     current_moy = parse_dt_to_month(yesterday)
     current_y = parse_dt_to_year(yesterday)
-    yesterday_date = """
-    select * except(week_of_year,month_of_year, year, revenue) from dwh_prod_report.revenue_daily where revenue_dt = '{}'
-    """.format(yesterday)
-
-    current_week = """
-    select * except(revenue_dt,month_of_year, year, revenue), sum(revenue) as revenue from dwh_prod_report.revenue_daily where week_of_year = '{}' and year = '{}' group by 1,2,3,4,5,6,7,8,9,10,11
-    """.format(current_woy, current_y)
-
-    current_month = """
-    select * except(revenue_dt,week_of_year, year,revenue), sum(revenue) as revenue from dwh_prod_report.revenue_daily where month_of_year = {} and year = '{}' group by 1,2,3,4,5,6,7,8,9,10,11
-    """.format(current_moy, current_y)
-
-    curren_year = """
-select * except(revenue_dt,week_of_year, month_of_year,revenue), sum(revenue) as revenue from dwh_prod_report.revenue_daily where year = '{}' group by 1,2,3,4,5,6,7,8,9,10,11
-""".format(current_y)
-    db_ops = {
-        "type": "service_account",
-        "project_id": "data-warehouse-sv",
-        "private_key_id": "dba312a3df629777b5486293d0b3c1f73d7fa565",
-        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCmSD+B3HYlMtDX\nOl1L1H095iN42xuUl5CgHqcZf/7OGagD/U3Yk4cs0iRujw3bhXnuML6GwNYrP1da\naRA5iHECLj4MobTCr7mSKrF/giauP+wNADQpQxCg5CmC2ZeRf98eIxbUvJVi11XJ\nEkByAtsjf0K8/qY/DmbhIQp6XSwqs4JPeF7X4uhuoAeiOPS15W9N3h5v2+9Mst4u\nacHG4qpW0XWoMQtWDF7HmwrWncoy2n+mQBFRcVG+D74/RzaUN13GRrY6UfT/WnGb\nPa7xNOyxh2komWv9LvvM1Vbm8Fgmh1VSytRMjjIop0ahWtPoN0D+9vXfT9ZQljcN\nfzRKysb7AgMBAAECggEAHUXz1DdNH1BaXsGaIhrm74o/7WtZaCfkoKO01DLp1zvC\nDe2+kiWqsvPN0R7jGCXf6NRw/kUdjyCIDtUXM6G3D2S3rL6dFXcdKsPUWre9eoir\nVECYbjktyL1SJ4SJ/+XskCAqSUpn3C4/nnXVnZyuGooxZBdKiihNaU3JS/ByMZP+\nywNs1Q/bzgLJW8CRwgUoBKl1Sg24vZpPcK32ntQ/B1SkRjvzsHKI5Qx+PJI7ZKIQ\ngTtWouR9ifj1r0a4DZfL3SjpTLrDKtSI+hmDt5Lb+9e5tinlVxeSvRIJpfg5mCrM\nyMbM/yVdvHSDgwRB0ak4Q2niNBizg02EMshecw7V7QKBgQDciSeJSYyZiDP4Hcl2\nmM13/wbqVisOsGE3RUmNtKfeqro2dwEmzLieiNBkXow6/z+y1/EjPSy3Tvsw/JeE\nii4KmpHle4mXPmJvOdfFaII0aCtQn07YeNU8bjankqEpt9/M/J3IPuzhVZZ682PC\nBf+3C+wjS5cL8vLVNdP4gzSETQKBgQDBBaA3kB58H4iICIwrytIMlz4Gs8/myG24\nMhsgbYnSufofQShlCx//74Dg0sl7FGATNu4/GGzushQawzRPFSUmdjs+1Je1h40v\n3Spzel+tllO6xSR3pgMxoySZS8UAP85DgZMnDs8mEjg8h5hfd7YSD9b3JOdF4593\nRRnkwgW8ZwKBgQDYG3rnuHAT33l1sNLD6damuP0w00GcQlDxlW8PcrFxrIGPb6xs\nNf7QM6dqQ5BNG+VyvtMowgC4nKfgCBX+Jl4ZvAAuDZH16IcTEW6UnuXArzeK6KGd\n1UK31hSuvyw4sluYBxAisy7zXSh50Vm3PqOn3wIGUENyzR8SuY2/H+ttnQKBgQCA\nSqP1qjWI3FCb0cqQpMq9kZypScQqKRc78Rm0kPmk9PV45o7Zse4/5skrJQ7DXoSI\n4N6zUyG7+OKB8zKGSZCaosS3+wcmoYTGxmIbxL9pGdxm6/dUCyReTofZ19GFW+NV\nXP8YW7B1JnD4UkuFUITUNnDzbTTGcAcid+xA7nBviwKBgQCC8Mj7a8rrNt45jaWb\n0pX4vMKNDVoYzMMccmNPmwZTJ4WOXpl4DOlGc4JGMqqxxbXuhIix7rQ6UFhaCEj6\nQViXZGTOMwR2YUQI6/jm2YwvXURK2gHCouHEraUIGdOBDYJ1GGEw2oc1IspCNLN4\no6FrPIJbO/W15q1/FeHHHN1CwQ==\n-----END PRIVATE KEY-----\n",
-        "client_email": "dp-dev@data-warehouse-sv.iam.gserviceaccount.com",
-        "client_id": "106647749644688116354",
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dp-dev%40data-warehouse-sv.iam.gserviceaccount.com"
-    }
-
+    yesterday_date = 
+    current_week = 
+    current_month = 
+    curren_year = 
     rev_accounting_config = {
         "process_name": "revenue_accounting",
         "process_type": "dwh",
         "process_group": "report",
-        "execution_date": datetime.datetime.now(),
-        "from_date": datetime.datetime(2022, 1, 1, 0, 15, tzinfo=vn_zone),
-        "to_date": datetime.datetime(2022, 5, 1, 0, 15, tzinfo=vn_zone),
+        "execution_date": datetime.now(),
+        "from_date": datetime(2022, 1, 1, 0, 15, tzinfo=vn_zone),
+        "to_date": datetime(2022, 5, 1, 0, 15, tzinfo=vn_zone),
 
         "params":{
             "telegram":{

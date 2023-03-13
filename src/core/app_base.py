@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, date
 import abc
 from abc import ABCMeta
 from typing import Type
@@ -10,6 +10,7 @@ import tqdm
 
 from libs.utils import deep_get
 from libs.telegram_utils import TelegramUtils
+from libs.logger_utils import MyLogger
 
 message_success_template = """```
 Process: {0}
@@ -47,9 +48,10 @@ class AppBase(object):
         signal.signal(signal.SIGTERM, self.exit_gracefully)
 
         self.config = config
-        log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        logging.basicConfig(format=log_format, level=logging.INFO)
-        self.log = logging.getLogger(config['process_name'])
+        # log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        # logging.basicConfig(format=log_format, level=logging.INFO)
+        # self.log = logging.getLogger(config['process_name'])
+        self.log = MyLogger(logger_name=config['process_name'], log_file_path="define/your/path", file_log_level=logging.DEBUG, console_log_level=logging.INFO)
 
         self.process_type = self.get_process_info(['process_type'])
         self.process_group = self.get_process_info(['process_group'])
@@ -65,7 +67,7 @@ class AppBase(object):
     def exit_gracefully(self, *args):
         process_info = "process_type={0} process_group={1} process_name={2}".format(
             self.process_type, self.process_group, self.process_name, self.execution_date)
-        at = datetime.datetime.now()
+        at = datetime.now()
         message = message_kill_template.format(process_info, at.strftime("%Y-%m-%d %H:%M:%S"))
         self.telegram_bot.send_message(
             user_id=self.owner_id,
@@ -79,7 +81,7 @@ class AppBase(object):
         return
 
     def send_message(self, msg):
-        process_info = "ptype={0} pgroup={1} pname={2}".format(
+        process_info = "process_type={0} process_group={1} process_name={2}".format(
             self.process_type, self.process_group, self.process_name, self.execution_date)
         self.telegram_bot.send_message(
             user_id=self.owner_id,
