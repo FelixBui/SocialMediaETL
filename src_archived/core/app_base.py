@@ -129,7 +129,6 @@ class AppBase(object):
         else:
             self.log.debug("load " + str(keys) + ": " + str(_value))
             return _value
-
     def wrapper_simple_log(func):
         @functools.wraps(func)
         def wrap(self, *args, **kwargs):
