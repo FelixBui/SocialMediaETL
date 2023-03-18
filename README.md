@@ -10,15 +10,30 @@ mv .env_SAMPLE .env
 
 ```
 
-## A typical top-level directory layout
+## Directory structure
 ```
-.
-├── config                  # Config files
-├── logs                    # Logs files
-├── src                     # Source code
-├── tests                   # Automated tests
-├── LICENSE
-└── README.md
+����SocialMediaETL
+    ����configs
+    ����dags
+    �   ����tiktok
+    �   ����youtube
+    ����data
+    �   ����raw
+    �   �   ����source_1
+    �   �   ����source_2
+    �   ����transformed
+    �       ����source_1
+    �       ����source_2
+    ����factories
+    ����plugins
+    �   ����helpers
+    �   ����hooks
+    �   ����operators
+    �   ����sensors
+    ����scripts
+    ����test
+        ����tiktok
+        ����ytb
 ```
 
 ## Usage
