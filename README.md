@@ -1,4 +1,4 @@
-# Seiryu
+# SocialMediaETL
 
 The purpose of this repo was to manage ETL projects
 
