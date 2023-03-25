@@ -148,3 +148,5 @@ config/
 docs/
 test/
 **/.DS_Store
+
+/src_archived

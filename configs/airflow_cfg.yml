@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: airflow-config
+data:
+  airflow.cfg: |
+    [core]
+    dags_folder = /usr/local/airflow/dags
+    executor = Kubernes
+    sql_alchemy_conn = postgresql+psycopg2://<user>:<password>@<host>:<port>/<database>
+    fernet_key = <fernet_key>
+    dag_default_view = graph_view
+    load_examples = False
+    logging_level = INFO
+
+    [webserver]
+    web_server_host = 0.0.0.0
+    web_server_port = 8080
+    secret_key = <secret_key>
+
+    [scheduler]
+    job_heartbeat_sec = 10
+    scheduler_heartbeat_sec = 5
+
+    [celery]
+    broker_url = amqp://guest:guest@localhost:5672//
+    result_backend = db+postgresql://<user>:<password>@<host>:<port>/<database>
+    worker_concurrency = 4
+
+    [smtp]
+    smtp_host = smtp.gmail.com
+    smtp_starttls = True
+    smtp_ssl = False
+    smtp_user = <username>
+    smtp_password = <password>
+    smtp_port = 587
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: airflow-secrets
+type: Opaque
+data:
+  fernet-key: <base64-encoded fernet key>
+  smtp-password: <base64-encoded password>
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: airflow-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow
+  template:
+    metadata:
+      labels:
+        app: airflow
+    spec:
+      containers:
+        - name: airflow
+          image: <your-docker-image>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: airflow-config-volume
+              mountPath: /usr/local/airflow/config
+            - name: airflow-dags-volume
+              mountPath: /usr/local/airflow/dags
+            - name: airflow-secrets-volume
+              mountPath: /usr/local/airflow/secrets
+          env:
+            - name: AIRFLOW_HOME
+              value: /usr/local/airflow
+          command: ["bash", "-c", "airflow initdb && airflow webserver"]
+      volumes:
+        - name: airflow-config-volume
+          configMap:
+            name: airflow-config
+        - name: airflow-dags-volume
+          persistentVolumeClaim:
+            claimName: airflow-pvc
+        - name: airflow-secrets-volume
+          secret:
+            secretName: airflow-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: airflow
+spec:
+  selector:
+    app: airflow
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
