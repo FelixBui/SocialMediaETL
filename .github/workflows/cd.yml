@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  PROJECT_ID: ${{ secrets.GCP_SA_PROJECT_ID }}
   GKE_CLUSTER: cluster-1    # Add your cluster name here.
   GKE_ZONE: asia-southeast1-a  # Add your cluster zone here.
   DEPLOYMENT_NAME: gke-test # Add your deployment name here.
@@ -25,8 +25,8 @@ jobs:
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
-        service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ secrets.GKE_PROJECT }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        project_id: ${{ secrets.GCP_SA_PROJECT_ID }}
 
     # Configure Docker to use the gcloud command-line tool as a credential
     # helper for authentication
@@ -37,20 +37,20 @@ jobs:
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+        credentials: ${{ secrets.GCP_SA_KEY }}
 
-    # Build the Docker image
-    - name: Build docker
-      run: |-
-        docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
-          .
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |- 
-        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+    # # Build the Docker image
+    # - name: Build docker
+    #   run: |-
+    #     docker build \
+    #       --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+    #       --build-arg GITHUB_SHA="$GITHUB_SHA" \
+    #       --build-arg GITHUB_REF="$GITHUB_REF" \
+    #       .
+    # # Push the Docker image to Google Container Registry
+    # - name: Publish
+    #   run: |- 
+    #     docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
     # Set up kustomize
     - name: Set up Kustomize!
       run: |-
