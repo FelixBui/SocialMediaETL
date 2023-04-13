@@ -13,6 +13,6 @@ jobs:
       uses: actions/checkout@v3
     - name: Auto-pytest
       run: |
-        astro dev init
+        astro  dev init
         curl -sSL install.astronomer.io | sudo bash -s
         astro dev pytest
