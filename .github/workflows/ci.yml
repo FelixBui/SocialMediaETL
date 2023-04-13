@@ -12,7 +12,7 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v3
     - name: Setup Astro CLI
-      uses: astronomer/setup-astro@v2
+      uses: withastro/action@v0
       with:
         astro_version: 'latest'
     - name: Auto-pytest
