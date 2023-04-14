@@ -2,6 +2,7 @@ from airflow import DAG
 from pendulum import datetime
 from airflow.operators.empty import EmptyOperator
 
+
 with DAG(
     dag_id="simple_classic_dag",
     start_date=datetime(2023, 1, 1),
@@ -11,5 +12,5 @@ with DAG(
 
     t1 = EmptyOperator(task_id="t1")
 
-if __name__ == "__main__":
-    dag.test()
+# if __name__ == "__main__":
+#     dag.test()
