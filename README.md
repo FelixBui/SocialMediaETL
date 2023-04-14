@@ -12,28 +12,28 @@ mv .env_SAMPLE .env
 
 ## Directory structure
 ```
-����SocialMediaETL
-    ����configs
-    ����dags
-    �   ����tiktok
-    �   ����youtube
-    ����data
-    �   ����raw
-    �   �   ����source_1
-    �   �   ����source_2
-    �   ����transformed
-    �       ����source_1
-    �       ����source_2
-    ����factories
-    ����plugins
-    �   ����helpers
-    �   ����hooks
-    �   ����operators
-    �   ����sensors
-    ����scripts
-    ����test
-        ����tiktok
-        ����ytb
+----SocialMediaETL
+    |---configs
+    |---dags
+    |   |---tiktok
+    |   |---youtube
+    |---data
+    |   |---raw
+    |   |   |---source_1
+    |   |   |---source_2
+    |   |---transformed
+    |       |---source_1
+    |       |---source_2
+    |---factories
+    |---plugins
+    |   |---helpers
+    |   |---hooks
+    |   |---operators
+    |   |---sensors
+    |---scripts
+    |---test
+        |---tiktok
+        |---ytb
 ```
 
 ## Usage
