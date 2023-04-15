@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  push:
+  push: feature 
   pull_request:
 
 jobs:
@@ -26,8 +26,8 @@ jobs:
       run: |
         pytest
     - name: Merge into main
-          if: ${{ github.ref == 'refs/origin/feature' && success() }}
-          uses: peaceiris/actions-auto-merge@v1
-          with:
-            merge_method: merge
-            commit_message: Automatically merged changes from feature branch
+      if: ${{ github.ref == 'refs/origin/feature' && success() }}
+      uses: peaceiris/actions-auto-merge@v1
+      with:
+        merge_method: merge
+        commit_message: Automatically merged changes from feature branch
