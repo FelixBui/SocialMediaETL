@@ -25,3 +25,9 @@ jobs:
     - name: Run tests
       run: |
         pytest
+    - name: Merge into main
+          if: ${{ github.ref == 'refs/origin/feature' && success() }}
+          uses: peaceiris/actions-auto-merge@v1
+          with:
+            merge_method: merge
+            commit_message: Automatically merged changes from feature branch
