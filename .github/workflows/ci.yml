@@ -1,8 +1,10 @@
 name: CI
 
 on:
-  push: feature 
+  push:
+    branches: [ feature ]
   pull_request:
+    branches: [ feature ]
 
 jobs:
   build:
