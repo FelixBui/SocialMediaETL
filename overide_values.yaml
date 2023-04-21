@@ -341,13 +341,20 @@ extraEnvFrom: ~
 # Airflow database & redis config
 data:
   metadataConnection:
-    user: airflow_user
+    user: test-local-user
     pass: Thitca5735@123
     protocol: postgresql
-    host: 35.188.67.50
+    host: localhost
     port: 5432
-    db: airflow_db
+    db: test-loca-db
     sslmode: disable
+    # user: airflow_user
+    # pass: Thitca5735@123
+    # protocol: postgresql
+    # host: 35.188.67.50
+    # port: 5432
+    # db: airflow_db
+    # sslmode: disable
   # If secret names are provided, use those secrets
   # These secrets must be created manually, eg:
   #
@@ -1966,8 +1973,8 @@ dags:
     enabled: true
     repo: git@github.com:FelixBui/SocialMediaETL.git
     branch: main
-    sshKeySecret: airflow-git-ssh-secret
-    subPath: "dags/*"
+    sshKeySecret: airflow-ssh-git-secret
+    subPath: "dags/*.py"
     # git repo clone url
     # ssh example: git@github.com:apache/airflow.git
     # https example: https://github.com/apache/airflow.git
