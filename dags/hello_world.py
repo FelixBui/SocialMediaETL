@@ -25,7 +25,7 @@ dag = DAG(
 ) 
 
 def hello_word():
-    return print('Hello word')
+    return print('Hello word with dit me may')
 
 
 with dag:
