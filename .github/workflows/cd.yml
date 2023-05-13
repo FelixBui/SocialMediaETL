@@ -1,6 +1,6 @@
 name: Build and Deploy to GKE
 
-on: pull-request
+on: workflow_dispatch
 
 env:
   PROJECT_ID: ${{ secrets.GCP_SA_PROJECT_ID }}
