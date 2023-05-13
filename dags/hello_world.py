@@ -9,7 +9,7 @@ default_args = {
     "retries": 1,
     "retry_delay": timedelta(minutes=1),
     "depends_on_past": False,
-    "email": ['long.tranp@homecredit.vn'] ,
+    "email": ['philongqh@gmail.com'] ,
     "sla": timedelta(hours=1),
     'email_on_failure': False,
     'email_on_retry': False,
@@ -25,7 +25,7 @@ dag = DAG(
 ) 
 
 def hello_word():
-    return print('Hello word')
+    return print('Hello word with dit me may')
 
 
 with dag:
