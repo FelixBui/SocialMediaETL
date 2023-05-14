@@ -32,14 +32,10 @@ dag = DAG(
 def download_video():
     video_id = '5gfS8MydNLk'
     video_url = f'https://www.youtube.com/watch?v={video_id}'
-
     # Download YouTube video in 480p resolution using pytube
-    try:
-        yt = YouTube(video_url).streams.get_by_itag(22).download()
-        name_file_mp4 = f'{video_id}.mp4'
-        os.rename(yt, name_file_mp4 )
-    except Exception E:
-        print(e)
+    yt = YouTube(video_url).streams.get_by_itag(22).download()
+    name_file_mp4 = f'{video_id}.mp4'
+    os.rename(yt, name_file_mp4)
 
 
 with dag:
@@ -48,7 +44,6 @@ with dag:
 
     first_task = PythonOperator(task_id = "hello_word", python_callable=download_video)
     start_task >> first_task >> end_task
-# Set up YouTube video ID and URL
 
 
 
