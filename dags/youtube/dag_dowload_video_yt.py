@@ -24,7 +24,7 @@ with DAG(
     schedule = "@once",
     catchup=False,
 ) as dag:
-    task = PythonOperator(task_id = "dl_video_test", python_callable=download_video)
+    task = PythonOperator(task_id = "dl_video", python_callable=download_video)
 
 
 
