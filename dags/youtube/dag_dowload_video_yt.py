@@ -4,7 +4,7 @@ from airflow.operators.python_operator import PythonOperator
 from pytube import YouTube
 import pytube
 from datetime import datetime
-from airflow.contrib.operators.ssh_operator import SSHOperator
+
 
 
 dag = DAG(
@@ -15,10 +15,10 @@ dag = DAG(
 )
 
 def download_youtube_video(video_id):
-    video_id='5gfS8MydNLk'
+    video_id= 'fNSg9sTOfqY'
     video_url = f'https://www.youtube.com/watch?v={video_id}'
-    # Download YouTube video in 480p resolution using pytube
-    yt = YouTube(video_url).streams.get_by_itag(22).download(filename=f'{video_id}.mp4')
+    file_name= f'{video_id}.mp4'
+    yt = YouTube(video_url, ).streams.get_by_itag(22).download(filename=file_name)
 
 
 with dag:
