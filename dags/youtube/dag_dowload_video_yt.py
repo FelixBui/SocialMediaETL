@@ -18,7 +18,7 @@ def download_youtube_video(video_id):
     video_id= 'fNSg9sTOfqY'
     video_url = f'https://www.youtube.com/watch?v={video_id}'
     file_name= f'{video_id}.mp4'
-    yt = YouTube(video_url, ).streams.get_by_itag(22).download(filepath="/opt/airflow/dags/repo",filename=file_name)
+    yt = YouTube(video_url).streams.get_by_itag(22).download(output_path="/opt/airflow/dags/repo",filename=file_name)
 
 
 with dag:
