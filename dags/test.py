@@ -15,7 +15,7 @@ default_args = {
     'email_on_retry': False,
 }
 dag = DAG(
-    dag_id="youtube.hellword",
+    dag_id="hum",
     default_args=default_args,
     description= 'My first dag',
     schedule_interval = "@once",
