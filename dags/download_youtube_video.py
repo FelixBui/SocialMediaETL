@@ -1,10 +1,7 @@
-import os
-from pytube import YouTube
-import pytube
 from datetime import datetime, date, timedelta
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python import PythonVirtualenvOperator
 from airflow.models import Variable
 
 default_args = {
@@ -38,8 +35,7 @@ def download_youtube_video():
 with dag:
     start_task = DummyOperator(task_id = "start")
     end_task = DummyOperator(task_id = "end")
-
-    first_task = PythonOperator(task_id = "download_video", python_callable=download_youtube_video)
+    first_task = PythonVirtualenvOperator(task_id = "download_video",requirements="pytube==15.0.0", python_callable=download_youtube_video)
     start_task >> first_task >> end_task
 
 
