@@ -8,17 +8,17 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.models import Variable
 
 default_args = {
-    "owner": "longtp",
+    "owner": "tmq",
     "retries": 1,
     "retry_delay": timedelta(minutes=1),
     "depends_on_past": False,
-    "email": ['philongqh@gmail.com'] ,
+    "email": ['shenkedokato@gmail.com'] ,
     "sla": timedelta(hours=1),
     'email_on_failure': False,
     'email_on_retry': False,
 }
 dag = DAG(
-    dag_id="youtube.download",
+    dag_id="download_video_yt",
     default_args=default_args,
     description= 'My first dag',
     schedule_interval = "@once",
