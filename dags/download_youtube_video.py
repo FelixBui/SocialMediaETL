@@ -18,7 +18,7 @@ default_args = {
     'email_on_retry': False,
 }
 dag = DAG(
-    dag_id="youtube.hellword",
+    dag_id="youtube.download",
     default_args=default_args,
     description= 'My first dag',
     schedule_interval = "@once",
@@ -38,7 +38,7 @@ with dag:
     start_task = DummyOperator(task_id = "start")
     end_task = DummyOperator(task_id = "end")
 
-    first_task = PythonOperator(task_id = "hello_word", python_callable=download_youtube_video)
+    first_task = PythonOperator(task_id = "download_video", python_callable=download_youtube_video)
     start_task >> first_task >> end_task
 
 
