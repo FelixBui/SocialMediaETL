@@ -10,7 +10,7 @@ def test_dag_syntax():
     for dag_file in dag_files:
         file_name = os.path.basename(dag_file)
         dag_name = os.path.splitext(file_name)[0]
-        if not dagbag.has_dag(dag_name):
+        if not dagbag.is_dag(dag_name):
             failed_dags.append(dag_name)
     
     if failed_dags:
