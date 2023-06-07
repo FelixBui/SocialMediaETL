@@ -141,17 +141,25 @@ def ingest_thumnail_for_video_youtube_data(video_url, bucket_name, file_name):
     # Get the YouTube video data
     yt = YouTube(video_url)
     video_id=yt.video_id
-    count=0
-    for caption_track in yt.caption_tracks:
+    channel_id=None
+    thumbnail_url=None
+    thumbnail_width=None
+    thumbnail_height=None
+    count =0
+    thumbnail_type="Video"
+    for thumbnail in yt.vid_info["videoDetails"][ 'thumbnail']['thumbnails']:
         count+=1
-        language=caption_track.name
-        content=yt.captions[caption_track.code].xml_captions
+        thumbnail_url=thumbnail["url"]
+        thumbnail_width=thumbnail["width"]
+        thumbnail_height=thumbnail["height"]
 
-        # Create a dictionary to store the data
         data = {
             "VideoID": video_id,
-            "Language": language,
-            "Contents": content
+            "ChannelID": channel_id,
+            "Type": thumbnail_type,
+            "URL": thumbnail_url,
+            "Width": thumbnail_width,
+            "Height": thumbnail_height
         }
         # Convert the data to JSON
         json_data = json.dumps(data)
@@ -160,7 +168,7 @@ def ingest_thumnail_for_video_youtube_data(video_url, bucket_name, file_name):
         bucket = storage_client.get_bucket(bucket_name)
 
         # Define the GCS file path
-        file_path = f"Caption/{file_name}_{str(count)}.json"
+        file_path = f"Thumbnail/{file_name}_{str(count)}.json"
 
         # Create a GCS blob
         blob = bucket.blob(file_path)
@@ -172,24 +180,27 @@ def ingest_thumnail_for_video_youtube_data(video_url, bucket_name, file_name):
         blob.upload_from_string(json_data, content_type="application/json")
 
         print(f"Data ingested and saved to GCS: gs://{bucket_name}/{file_path}")
-def ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name):
+def ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name,thumbnail_type,thumbnail_id):
     # Type(avata,banner,mobile_banner)
     # Get the YouTube video data
     yt = YouTube(video_url)
     channel_url=yt.channel_url
     channel=Channel(channel_url)
-
-    count=0
-    for caption_track in yt.caption_tracks:
+    count=thumbnail_id
+    for thumbnail in channel.initial_data["header"]['c4TabbedHeaderRenderer'][thumbnail_type]['thumbnails']:
         count+=1
-        language=caption_track.name
-        content=yt.captions[caption_track.code].xml_captions
-
-        # Create a dictionary to store the data
+        video_id=None
+        channel_id=channel.channel_id
+        thumbnail_url= thumbnail["url"]
+        thumbnail_width=thumbnail["width"]
+        thumbnail_height=thumbnail["height"]
         data = {
             "VideoID": video_id,
-            "Language": language,
-            "Contents": content
+            "ChannelID": channel_id,
+            "Type": thumbnail_type,
+            "URL": thumbnail_url,
+            "Width": thumbnail_width,
+            "Height": thumbnail_height
         }
         # Convert the data to JSON
         json_data = json.dumps(data)
@@ -198,7 +209,7 @@ def ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name):
         bucket = storage_client.get_bucket(bucket_name)
 
         # Define the GCS file path
-        file_path = f"Caption/{file_name}_{str(count)}.json"
+        file_path = f"Thumbnail/{file_name}_{str(count)}.json"
 
         # Create a GCS blob
         blob = bucket.blob(file_path)
@@ -210,13 +221,20 @@ def ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name):
         blob.upload_from_string(json_data, content_type="application/json")
 
         print(f"Data ingested and saved to GCS: gs://{bucket_name}/{file_path}")
+
+        return count
 # Example usage
 video_id= 'ZtBzWUZbTvA'
 video_url = f'https://www.youtube.com/watch?v={video_id}'
 bucket_name = "video_storage_yt"
 file_name = video_id
+default_thumbnail_id=0
 
 ingest_video_youtube_data(video_url, bucket_name, file_name)
 ingest_channel_youtube_data(video_url, bucket_name, file_name)
 ingest_caption_youtube_data(video_url, bucket_name, file_name)
+ingest_thumnail_for_video_youtube_data(video_url, bucket_name, file_name)
+thumbnail_id=ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name, "avatar", default_thumbnail_id)
+thumbnail_id=ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name, "banner", thumbnail_id)
+thumbnail_id=ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name, "tvBanner", thumbnail_id)
 
