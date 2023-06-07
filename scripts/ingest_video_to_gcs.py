@@ -180,6 +180,7 @@ def ingest_thumnail_for_video_youtube_data(video_url, bucket_name, file_name):
         blob.upload_from_string(json_data, content_type="application/json")
 
         print(f"Data ingested and saved to GCS: gs://{bucket_name}/{file_path}")
+    return count
 def ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name,thumbnail_type,thumbnail_id):
     # Type(avata,banner,mobile_banner)
     # Get the YouTube video data
@@ -222,19 +223,19 @@ def ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name,t
 
         print(f"Data ingested and saved to GCS: gs://{bucket_name}/{file_path}")
 
-        return count
+    return count
 # Example usage
 video_id= 'ZtBzWUZbTvA'
 video_url = f'https://www.youtube.com/watch?v={video_id}'
 bucket_name = "video_storage_yt"
 file_name = video_id
-default_thumbnail_id=0
+
 
 ingest_video_youtube_data(video_url, bucket_name, file_name)
 ingest_channel_youtube_data(video_url, bucket_name, file_name)
 ingest_caption_youtube_data(video_url, bucket_name, file_name)
-ingest_thumnail_for_video_youtube_data(video_url, bucket_name, file_name)
-thumbnail_id=ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name, "avatar", default_thumbnail_id)
+thumbnail_id=ingest_thumnail_for_video_youtube_data(video_url, bucket_name, file_name)
+thumbnail_id=ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name, "avatar", thumbnail_id)
 thumbnail_id=ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name, "banner", thumbnail_id)
 thumbnail_id=ingest_thumnail_for_channel_youtube_data(video_url, bucket_name, file_name, "tvBanner", thumbnail_id)
 
