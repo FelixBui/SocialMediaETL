@@ -34,7 +34,8 @@ def ingest_video_youtube_data(video_url: str, bucket_name: str, file_name: str):
         "Length": length,
         "Publish_date": publish_date,
         "Title": title,
-        "Views":view
+        "Views":view,
+        "Description":description
     }
 
     # Convert the data to JSON
@@ -73,11 +74,11 @@ def ingest_channel_youtube_data(video_url, bucket_name, file_name):
     # Create a dictionary to store the data
     data = {
         "ChannelID": channel_id,
-        "url": channel_url,
+        "URL": channel_url,
         "Name": channel_name,
-        "description": channel_description,
-        "subcribed": channel_subcribed,
-        "keywords": channel_keywords
+        "Description": channel_description,
+        "Subcribed": channel_subcribed,
+        "Keywords": channel_keywords
     }
 
     # Convert the data to JSON
