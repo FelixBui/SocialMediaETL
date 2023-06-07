@@ -6,8 +6,6 @@ from airflow.models import Variable
 
 default_args = {
     "owner": "tmq",
-    "retries": 1,
-    "retry_delay": timedelta(minutes=1),
     "depends_on_past": False,
     "email": ['shenkedokato@gmail.com'] ,
     "sla": timedelta(hours=1),
