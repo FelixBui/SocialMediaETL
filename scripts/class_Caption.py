@@ -1,7 +1,7 @@
-from class_YouTube import YT
+from class_YouTube import YouTubeETL
 from typing import Optional
 
-class Cap:
+class CaptionETL:
 
     def __init__(self, video_url: str, sa_key: str, bucket_name: Optional[str]):
         super.__init__(self, video_url, sa_key, bucket_name)

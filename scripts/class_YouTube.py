@@ -1,6 +1,6 @@
-from class_SMETL import SMETL
+from class_SMETL import SocialMediaETL
 from typing import Optional
-class YT(SMETL):
+class YouTubeETL(SocialMediaETL):
 
     def __init__(self, video_url: str, sa_key: str, bucket_name: Optional[str]):
         super.__init__(self,video_url,sa_key, bucket_name)
@@ -34,6 +34,3 @@ class YT(SMETL):
 
 
 
-"""
-    Code ẩu, không import thư viện vào thì dùng class con dùng kiểu gì ??? thừa kế của thằng cha nhưng không import thằng cha vào để thừa kế ??
-"""

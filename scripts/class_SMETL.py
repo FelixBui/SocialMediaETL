@@ -6,8 +6,7 @@ from google.cloud import storage
 from google.oauth2 import service_account
 from typing import Optional
 
-
-class SMETL:
+class SocialMediaETL:
     
     def __init__(self, video_url: str, sa_key: str, bucket_name: Optional[str] = "video_storage_yt"):
         sefl.video_url=video_url
@@ -25,7 +24,3 @@ class SMETL:
 
     def load(self):
         pass
-
-"""
-    Viết lại tên toàn bộ class, vd: SMEL ??? tên này có nghĩa là cái qq gì gì???? đọc vào có hiểu object đó là gì không không???
-"""
