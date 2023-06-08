@@ -152,3 +152,4 @@ test/
 /src_archived
 /configs
 /*.yaml
+/*.yml
