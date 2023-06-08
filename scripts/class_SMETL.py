@@ -4,8 +4,10 @@ from pytube import Caption
 import json
 from google.cloud import storage
 from google.oauth2 import service_account
+from typing import Optional
 
-class SMEL:
+
+class SMETL:
     
     def __init__(self, video_url: str, sa_key: str, bucket_name: Optional[str] = "video_storage_yt"):
         sefl.video_url=video_url

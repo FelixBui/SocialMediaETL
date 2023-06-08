@@ -1,6 +1,9 @@
+from class_YouTube import YT
+from typing import Optional
+
 class Cap:
 
-    def __init__(self, video_url: str, sa_key: str, bucket_name: Optrional[str]):
+    def __init__(self, video_url: str, sa_key: str, bucket_name: Optional[str]):
         super.__init__(self, video_url, sa_key, bucket_name)
 
     def extract(self):

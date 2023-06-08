@@ -1,7 +1,9 @@
+from class_YouTube import YT
+from typing import Optional
 
-class Video(youtube):
+class Video(YT):
 
-    def __init__(self, video_url: str, sa_key: str, video_path: str, bucket_name: Optrional[str]):
+    def __init__(self, video_url: str, sa_key: str, video_path: str, bucket_name: Optional[str]):
         super.__init__(self,video_url,sa_key, bucket_name)
         self.video_path=video_path
 

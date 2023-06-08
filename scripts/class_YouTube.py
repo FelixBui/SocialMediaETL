@@ -1,4 +1,5 @@
-
+from class_SMETL import SMETL
+from typing import Optional
 class YT(SMETL):
 
     def __init__(self, video_url: str, sa_key: str, bucket_name: Optional[str]):

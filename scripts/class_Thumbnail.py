@@ -1,3 +1,5 @@
+from class_YouTube import YT
+from typing import Optional
 class Thumbnail(YT):
 
     def __init__(self, video_url: str , sa_key: str, bucket_name: Optional [str] ):
