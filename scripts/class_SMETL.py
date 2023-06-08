@@ -25,3 +25,7 @@ class SMETL:
 
     def load(self):
         pass
+
+"""
+    Viết lại tên toàn bộ class, vd: SMEL ??? tên này có nghĩa là cái qq gì gì???? đọc vào có hiểu object đó là gì không không???
+"""

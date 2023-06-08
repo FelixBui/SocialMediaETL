@@ -50,6 +50,8 @@ class Video(YT):
         blob.upload_from_filename(video_path, content_type=type_data)
 
         print(f"Data ingested and saved to GCS: gs://{bucket_name}/{file_path}")
-
+"""
+    Code ẩu, không import thư viện vào thì dùng class con dùng kiểu gì ??? thừa kế của thằng cha nhưng không import thằng cha vào để thừa kế ??
+"""
     
 

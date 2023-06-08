@@ -34,3 +34,6 @@ class CH(YT):
 
 
 
+"""
+    Code ẩu, không import thư viện vào thì dùng class con dùng kiểu gì ??? thừa kế của thằng cha nhưng không import thằng cha vào để thừa kế ??
+"""
