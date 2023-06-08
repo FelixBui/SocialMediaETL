@@ -150,6 +150,5 @@ test/
 **/.DS_Store
 
 /src_archived
-/configs
 /*.yaml
 /*.yml
