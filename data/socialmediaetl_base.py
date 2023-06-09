@@ -1,6 +1,7 @@
 import abc
 
 class SocialMediaETL:
+
     def __init__(self):
         pass
 

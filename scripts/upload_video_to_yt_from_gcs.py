@@ -57,7 +57,7 @@ def video_categories():
     df = pd.DataFrame(video_categories.get('items'))
     return pd.concat([df['id'], df['snippet'].apply(pd.Series)[['title']]], axis=1)
 
-BUCKET_NAME = 'shenkedokato'
+YTB_BUCKET_NAME = 'shenkedokato'
 VIDEO_FILE_NAME = 'Ys7mGc10IaQ.mp4'
 API_NAME = 'youtube'
 API_VERSION = 'v3'
@@ -66,7 +66,7 @@ client_file = 'E:\python\client_secrets.json'
 service = Create_Service(client_file, API_NAME, API_VERSION, SCOPES)
 credentials = service_account.Credentials.from_service_account_file('C:/Users/Admin/Downloads/sa_key.json')
 storage_client = storage.Client(credentials=credentials)
-bucket = storage_client.bucket(BUCKET_NAME)
+bucket = storage_client.bucket(YTB_BUCKET_NAME)
 blob = bucket.blob(VIDEO_FILE_NAME)
 print(video_categories())
 

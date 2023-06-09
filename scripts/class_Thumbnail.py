@@ -34,8 +34,8 @@ class Thumbnail(YouTubeETL):
             data_list.append(data)
         return data_list
 
-    def load(self, data_list: list, folder: Optional = "Thumbnail", type_data: Optional = "application/json"):
-        super.load(data_list,folder,type_data)
+    def load(self, data_list: list, folder: Optional = "Thumbnail", content_type: Optional = "application/json"):
+        super.load(data_list,folder,content_type)
 
 
 

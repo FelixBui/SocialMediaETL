@@ -12,10 +12,8 @@ class CaptionETL:
     def transform(self) -> list:
         video_id=youtube.video_id
         data_list=[]
-        count=0
-        for caption_track in youtube.caption_tracks:
-            count+=1
-            caption_id=f"{file_name}_{str(count)}"
+        for idx, caption_track in enumerate(youtube.caption_tracks):
+            caption_id=f"{file_name}_{str(idx+1)}"
             language=caption_track.name
             content=youtube.captions[caption_track.code].json_captions
 
@@ -29,5 +27,5 @@ class CaptionETL:
             data_list.append(data)
         return data_list
         
-    def load(self, data_list: list, folder: Optional = "Caption", type_data: Optional = "application/json"):
-        super.load(data_list,folder,type_data)
+    def load(self, data_list: list, folder = "Caption", content_type = "application/json"):
+        super.load(data_list,folder,content_type)

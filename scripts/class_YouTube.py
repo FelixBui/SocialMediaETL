@@ -38,16 +38,16 @@ class VideoETL(YouTubeETL):
         data_list.append(data)
         return data_list
 
-    def load(self, data_list: list, folder: Optional = "Video", type_data: Optional = "application/json"):
-        super.load(data_list,folder,type_data)
+    def load(self, data_list: list, folder: Optional = "Video", content_type: Optional = "application/json"):
+        super.load(data_list,folder,content_type)
 
-    def load_video_gcs(self, type_data: str, file_path: str):
+    def load_video_gcs(self, content_type: str, file_path: str):
         blob = bucket.blob(file_path)
 
-        blob.content_type = type_data
+        blob.content_type = content_type
 
         # Upload the JSON data to GCS
-        blob.upload_from_filename(video_path, content_type=type_data)
+        blob.upload_from_filename(video_path, content_type=content_type)
 
         print(f"Data ingested and saved to GCS: gs://{bucket_name}/{file_path}")
 """
