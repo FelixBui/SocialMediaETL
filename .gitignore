@@ -154,3 +154,4 @@ test/
 /*.yml
 /sa_key.json
 /test_main.py
+/configs

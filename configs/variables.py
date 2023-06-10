@@ -1,5 +1,5 @@
 ### GCP variables
-GCP_SA_KEY = '/Users/macos/SocialMediaETL/sa_key.json'  #Enter gcp service account path
+GCP_SA_KEY = '/opt/airflow/sa_key.json'  #Enter gcp service account path
 
 ### GCS variables
 YTB_BUCKET_NAME = 'video_storage_yt'  #Enter you bucket name
