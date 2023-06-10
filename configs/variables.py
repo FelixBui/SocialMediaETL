@@ -1,9 +1,14 @@
 ### GCP variables
-GCP_SA_KEY = ''  #Enter gcp service account path
+GCP_SA_KEY = 'C:/Users/Admin/Downloads/sa-key-SMETL.json'  #Enter gcp service account path
 
 ### GCS variables
 YTB_BUCKET_NAME = 'video_storage_yt'  #Enter you bucket name
-
+folder = {
+    'fd_video' : 'Video',
+    'fd_caption' : 'Caption',
+    'fd_thumbnail' : 'Thumbnail',
+    'fd_channel' : 'Channel',
+}
 ### Content type for load to gcs
 content_type = {
     'json':'application/json',
