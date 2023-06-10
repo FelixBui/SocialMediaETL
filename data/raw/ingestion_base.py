@@ -1,19 +1,16 @@
-from typing import Optional
-import json
+from datetime import datetime, date
 import logging
 
 
 from data.socialmediaetl_base import SocialMediaETL
-from configs.variables import *
-from plugins.helpers.utils import get_gcs_bucket
+from plugins.helpers.utils import *
 
-
+PREFIX = [date.today(), datetime.now().strftime('%Y-%m-%d %H:%M:%S')]
 class Ingestion(SocialMediaETL):
-    def __init__(self, video_url):
+    def __init__(self, source: str):
         super().__init__()
-        self.video_url = video_url
         self.bucket = get_gcs_bucket()
-        self.file_name = self.youtube.video_id
+        self.source = source
 
     def extract(self):
         pass
@@ -21,21 +18,18 @@ class Ingestion(SocialMediaETL):
     def transform(self):
         pass
 
-    def load(self, data_list: list, folder: str, content_type: str):
-        for idx, data in enumerate(data_list):
-            json_data = json.dumps(data)
-            # Get the GCS bucket
-            file_path = f"{folder}/{self.file_name}_{str(idx+1)}.json"
-            # Create a GCS blob
-            blob = self.bucket.blob(file_path)
+    def load(self, source_file_path: str, destination_blob_name: str, content_type: str):
+        # Create a GCS blob
+        blob = self.bucket.blob(destination_blob_name)
 
-            # Set the content type of the blob
-            blob.content_type = content_type
+        # Set the content type of the blob
+        blob.content_type = content_type
 
-            # Upload the JSON data to GCS
-            blob.upload_from_string(json_data, content_type=content_type)
+        # Upload the mp4 data to GCS
+        blob.upload_from_filename(source_file_path)
 
-            logging.info(f"Data ingested and saved to GCS: gs://{YTB_BUCKET_NAME}/{file_path}")
+        # logging.info(f"Data ingested and saved to GCS: gs://{YTB_BUCKET_NAME}/{file_path}")
+        print(f"Ingested {destination_blob_name}")
 
     def execute(self):
         return super().execute()

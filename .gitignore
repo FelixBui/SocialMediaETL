@@ -152,3 +152,5 @@ test/
 /src_archived
 /*.yaml
 /*.yml
+/sa_key.json
+/test_main.py
