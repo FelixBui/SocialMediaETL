@@ -1,7 +1,7 @@
 import os
 from google.oauth2.service_account import Credentials
 from google.cloud import storage
-from configs.variables import GCP_SA_KEY,YTB_BUCKET_NAME
+from configs.variables_1 import GCP_SA_KEY,YTB_BUCKET_NAME
 
 
 def get_gcp_creds() -> object:
