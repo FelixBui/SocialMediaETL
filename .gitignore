@@ -154,3 +154,5 @@ test/
 /*.yml
 /sa_key.json
 /test_main.py
+configs/variable_1.py
+plugins/helpers/utils.py

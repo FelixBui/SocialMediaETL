@@ -1,7 +1,7 @@
-from data.raw.youtube.ingestion_metadata_video import *
-from data.raw.youtube.ingestion_metadata_channel import *
-from data.raw.youtube.ingestion_metadata_caption import *
-from data.raw.youtube.ingestion_metadata_thumbnail import *
+from data.transformed.youtube.ingestion_metadata_video import *
+from data.transformed.youtube.ingestion_metadata_channel import *
+from data.transformed.youtube.ingestion_metadata_caption import *
+from data.transformed.youtube.ingestion_metadata_thumbnail import *
 
 
 if __name__ == '__main__':

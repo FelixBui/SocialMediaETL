@@ -1,5 +1,5 @@
-from data.raw.ingestion_metadata import Ingestion_Metadata
-from configs.variables import *
+from data.transformed.ingestion_metadata import Ingestion_Metadata
+from configs.variables_1 import *
 
 class Ingestion_Metadata_Video(Ingestion_Metadata):
     def __init__(self,video_id):

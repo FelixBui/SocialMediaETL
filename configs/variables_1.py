@@ -6,3 +6,7 @@ folder = {
     'fd_channel' : 'Channel',
 }
 YTB_BUCKET_NAME = 'video_storage_yt'
+content_type = {
+    'json': 'application/json',
+    'mp4': 'video/mp4'
+}
