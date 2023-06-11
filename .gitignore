@@ -154,9 +154,5 @@ test/
 /*.yml
 /sa_key.json
 /test_main.py
-<<<<<<< HEAD
 /configs
-=======
 configs/variable_1.py
-plugins/helpers/utils.py
->>>>>>> c5ab58a9f36c0b0a738f99484d4a0461fd0f1558

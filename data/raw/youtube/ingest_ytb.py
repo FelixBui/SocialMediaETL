@@ -1,14 +1,13 @@
 import os
 from datetime import datetime, date
-import requests
 import logging
+
+from pytube import YouTube
 
 from configs.variables import CONTENT_TYPE, AIRFLOW_HOME
 from data.raw.ingestion_base import Ingestion, PREFIX
 from plugins.helpers.utils import get_gcs_bucket, get_dir_name, get_base_name
 
-import pytube
-from pytube import YouTube
 
 
 class Ingest_YTB(Ingestion):
@@ -38,7 +37,7 @@ class Ingest_YTB(Ingestion):
             streams = [stream for stream in YouTube(video_url).streams.filter(progressive=True, file_extension='mp4')]
             return not any(stream.itag == 22 for stream in streams)
         except Exception as e:
-            print(f'{TypeError(e)}')
+            logging.error(f'{TypeError(e)}')
             return True
 
     def extract(self, video_url: str, src_file_path: str):
@@ -52,7 +51,7 @@ class Ingest_YTB(Ingestion):
     def load(self, src_file_path: str, content_type=CONTENT_TYPE['mp4']):
         file_name = f"{PREFIX[1]}_{get_base_name(src_file_path)}"
         dest_blob_name = f"Video/{self.source}/{str(PREFIX[0])}/{file_name}"
-        print(f"destination_blob_name: {dest_blob_name}")
+        logging.info(f"destination_blob_name: {dest_blob_name}")
         return super().load(src_file_path, dest_blob_name, content_type)        
 
     def execute(self, video_url: str, src_file_path: str):
@@ -66,10 +65,10 @@ class Ingest_YTB(Ingestion):
         if all(not condition for condition in conditions):
             # Extract to fs
             self.extract(video_url, src_file_path)
-            print("finish extraction")
+            logging.info("finish extraction")
             # Put to gcs
             self.load(src_file_path)
-            print("finish putting to gcs")
+            logging.info("finish putting to gcs")
         else:
-            print("This video is not met all conditions")
+            logging.error("This video is not met all conditions")
             pass
