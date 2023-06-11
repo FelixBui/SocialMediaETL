@@ -13,7 +13,8 @@ def testing():
     ytb_loader.execute(video_url, src_file_path)
 
 def test_import():
-    from plugins.helpers.utils import *
+    from plugins.helpers.utils import get_gcp_creds
+    return get_gcp_creds()
 
 default_args = {
     "owner": "longtp",
