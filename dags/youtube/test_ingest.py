@@ -39,6 +39,6 @@ with dag:
     start_task = DummyOperator(task_id = "start")
     end_task = DummyOperator(task_id = "end")
 
-    test_import_task = PythonOperator(task_id = "hello_word", python_callable=test_import())
+    test_import_task = PythonOperator(task_id = "hello_word", python_callable=test_import)
     start_task >> test_import_task >> end_task
 
