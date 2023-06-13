@@ -6,6 +6,7 @@ from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.python_operator import PythonOperator
 
 from data.raw.youtube.ingest_ytb import Ingest_YTB
+from plugins.helpers.utils import clear_mp4_files
 
 AIRFLOW_HOME = os.environ['AIRFLOW_HOME']
 
@@ -14,6 +15,7 @@ def testing():
     src_file_path = f"{AIRFLOW_HOME}/{os.path.basename(video_url)}.mp4"
     ytb_loader = Ingest_YTB('youtube')
     ytb_loader.execute(video_url, src_file_path)
+    clear_mp4_files()
 
 default_args = {
     "owner": "longtp",

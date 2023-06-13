@@ -1,4 +1,5 @@
 import os
+import glob
 from google.oauth2.service_account import Credentials
 from google.cloud import storage
 from configs.variables import GCP_SA_KEY,YTB_BUCKET_NAME
@@ -35,3 +36,12 @@ def get_dir_name(path: str):
         Return directory name of file directory
     '''
     return os.path.dirname(path)
+
+def clear_mp4_files():
+    '''
+        Intensively clean .mp4 files in Airlow home
+    '''
+    airflow_home = os.environ['AIRFLOW_HOME']
+    mp4_list = glob.glob(airflow_home + "/*.mp4")
+    for mp4 in mp4_list:
+        os.remove(mp4)
