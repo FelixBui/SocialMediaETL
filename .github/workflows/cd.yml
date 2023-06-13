@@ -37,7 +37,8 @@ jobs:
       run: |-
         export SCHEDULER_POD=$(kubectl get pods -n airflow | grep scheduler | awk '{print $1}')
         export WORKER_POD=$(kubectl get pods -n airflow | grep worker | awk '{print $1}')
-        kubectl exec -it $WORKER_POD -n airflow -- /home/airflow/.local/bin/pip install -r /opt/airflow/dags/repo/requirements.txt
-        kubectl exec -it $SCHEDULER_POD -n airflow -- /home/airflow/.local/bin/pip install -r /opt/airflow/dags/repo/requirements.txt
+        export REQUIREMENTS=/opt/airflow/dags/repo/requirements.txt
+        kubectl exec -it $WORKER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS
+        kubectl exec -it $SCHEDULER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS
         
 
