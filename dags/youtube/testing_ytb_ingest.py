@@ -11,7 +11,7 @@ from plugins.helpers.utils import clear_mp4_files
 AIRFLOW_HOME = os.environ['AIRFLOW_HOME']
 
 def testing():
-    video_url = 'https://www.youtube.com/shorts/0Vf1TpucUss'
+    video_url = 'https://www.youtube.com/watch?v=sgpaHhEt5b0'
     src_file_path = f"{AIRFLOW_HOME}/{os.path.basename(video_url)}.mp4"
     ytb_loader = Ingest_YTB('youtube')
     ytb_loader.execute(video_url, src_file_path)
