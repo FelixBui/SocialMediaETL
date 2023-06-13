@@ -23,6 +23,7 @@ dag = DAG(
 ) 
 
 def download_youtube_video():
+    from pytube import YouTube
     video_id= '1XoICkGxWtw'
     video_url = f'https://www.youtube.com/watch?v={video_id}'
     file_name= f'{video_id}.mp4'

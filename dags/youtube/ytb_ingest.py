@@ -36,6 +36,6 @@ with dag:
     start_task = DummyOperator(task_id = "start")
     end_task = DummyOperator(task_id = "end")
 
-    test_ytb_ingest = PythonOperator(task_id = "hello_word", python_callable=testing())
+    test_ytb_ingest = PythonOperator(task_id = "hello_word", python_callable=testing)
     start_task >> test_ytb_ingest >> end_task
 
