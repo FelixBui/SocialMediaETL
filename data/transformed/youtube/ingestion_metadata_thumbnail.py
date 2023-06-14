@@ -1,5 +1,6 @@
 from data.transformed.ingestion_metadata import Ingestion_Metadata
 from configs.variables_1 import *
+import time
 
 class Ingestion_Metadata_Thumbnail(Ingestion_Metadata):
     def __init__(sefl,video_id):
@@ -22,13 +23,14 @@ class Ingestion_Metadata_Thumbnail(Ingestion_Metadata):
             thumbnail_url=thumbnail["url"]
             thumbnail_width=thumbnail["width"]
             thumbnail_height=thumbnail["height"]
-
+            current_timestamp = time.time()
             data = {
                 "ThumbnailID": thumbnail_id,
                 "VideoID": video_id,
                 "URL": thumbnail_url,
                 "Width": thumbnail_width,
-                "Height": thumbnail_height
+                "Height": thumbnail_height,
+                "Timestamp": current_timestamp 
             }
 
             data_list.append(data)

@@ -1,6 +1,6 @@
 ### GCP variables
-GCP_SA_KEY = '/opt/airflow/sa_key.json'  #Enter gcp service account path
-
+# GCP_SA_KEY = '/opt/airflow/sa_key.json'  #Enter gcp service account path
+GCP_SA_KEY = "C:/Users/Admin/Downloads/sa-key-SMETL.json"
 ### GCS variables
 YTB_BUCKET_NAME = 'video_storage_yt'  #Enter you bucket name
 

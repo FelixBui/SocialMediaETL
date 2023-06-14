@@ -4,7 +4,7 @@ from pytube import YouTube
 from pytube import Channel
 from plugins.helpers.utils import *
 import json
-
+from plugins.helpers.utils1 import *
 
 class Ingestion_Metadata(SocialMediaETL):
     def __init__(self,video_url):
@@ -19,10 +19,13 @@ class Ingestion_Metadata(SocialMediaETL):
     def transform(self):
         pass 
     def load(self, data_list: list, folder: str, content_type: str):
+        datetime=datetime_now()
+        destination_folder_name = f"Metadata/{folder}/{datetime}"
         for idx, data in enumerate(data_list):
             json_data = json.dumps(data)
             # Get the GCS bucket
-            file_path = f"{folder}/{self.file_name}_{str(idx+1)}.json"
+            
+            file_path = f"{destination_folder_name}/{datetime}_metadata_{folder}_{self.file_name}_{str(idx+1)}.json"
             # Create a GCS blob
             blob = self.bucket.blob(file_path)
 

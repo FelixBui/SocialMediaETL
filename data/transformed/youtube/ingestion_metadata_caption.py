@@ -1,5 +1,6 @@
 from data.transformed.ingestion_metadata import Ingestion_Metadata
 from configs.variables_1 import *
+import time
 
 class Ingestion_Metadata_Caption(Ingestion_Metadata):
     def __init__(sefl,video_id):
@@ -15,13 +16,15 @@ class Ingestion_Metadata_Caption(Ingestion_Metadata):
             caption_id=f"{file_name}_{str(idx+1)}"
             language=caption_track.name
             content=youtube.captions[caption_track.code].json_captions
+            current_timestamp = time.time()
 
             # Create a dictionary to store the data
             data = {
-                "Caption_id": caption_id,
+                "Contents_caption_id": caption_id,
                 "VideoID": video_id,
                 "Language": language,
-                "Contents": content
+                "Contents": content,
+                "Timestamp": current_timestamp
             }
             data_list.append(data)
         return data_list

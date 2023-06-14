@@ -1,6 +1,6 @@
 from data.transformed.ingestion_metadata import Ingestion_Metadata
 from configs.variables_1 import *
-
+import time
 class Ingestion_Metadata_Channel(Ingestion_Metadata):
     def __init__(self,video_id):
         super().__init__(video_id)
@@ -14,6 +14,7 @@ class Ingestion_Metadata_Channel(Ingestion_Metadata):
         channel_description=channel.initial_data["metadata"]['channelMetadataRenderer']['description']
         channel_keywords=channel.initial_data["metadata"]['channelMetadataRenderer']['keywords']
         channel_subcribed=channel.initial_data["header"]["c4TabbedHeaderRenderer"]["subscriberCountText"]['simpleText']
+        current_timestamp = time.time()
         # Create a dictionary to store the data
         data = {
             "ChannelID": channel_id,
@@ -21,7 +22,8 @@ class Ingestion_Metadata_Channel(Ingestion_Metadata):
             "Name": channel_name,
             "Description": channel_description,
             "Subcribed": channel_subcribed,
-            "Keywords": channel_keywords
+            "Keywords": channel_keywords,
+            "Timestamp": current_timestamp 
         }
         data_list=[]
         data_list.append(data)

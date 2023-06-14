@@ -1,6 +1,6 @@
 from data.transformed.ingestion_metadata import Ingestion_Metadata
 from configs.variables_1 import *
-
+import time
 class Ingestion_Metadata_Video(Ingestion_Metadata):
     def __init__(self,video_id):
         super().__init__(video_id)
@@ -16,6 +16,7 @@ class Ingestion_Metadata_Video(Ingestion_Metadata):
         title=youtube.title
         view=youtube.views
         description=None
+        current_timestamp = time.time()
         for vd_id in channel.initial_data["contents"]['twoColumnBrowseResultsRenderer']['tabs'][1]['tabRenderer']['content']['richGridRenderer']['contents']:
         #     print(vd_id)
             video_id_ch = vd_id.get('richItemRenderer', {}).get('content', {}).get('videoRenderer', {}).get('videoId')
@@ -29,7 +30,8 @@ class Ingestion_Metadata_Video(Ingestion_Metadata):
             "Publish_date": publish_date,
             "Title": title,
             "Views":view,
-            "Description":description
+            "Description":description,
+            "Timestamp": current_timestamp 
         }
         data_list=[]
         data_list.append(data)
