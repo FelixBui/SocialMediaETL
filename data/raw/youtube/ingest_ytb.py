@@ -4,17 +4,18 @@ import logging
 
 from pytube import YouTube
 
-from configs.variables import CONTENT_TYPE, AIRFLOW_HOME
+from configs.variables import CONTENT_TYPE
 from data.raw.ingestion_base import Ingestion, PREFIX
 from plugins.helpers.utils import get_gcs_bucket, get_dir_name, get_base_name
 
-
+INGESTION_DATE = PREFIX[0]
+INGESTION_DATETIME = PREFIX[1]
 
 class Ingest_YTB(Ingestion):
     def __init__(self, source: str):
         super().__init__(source)
         self.bucket = get_gcs_bucket()
-        self._output_path = AIRFLOW_HOME
+        self._airflow_home = os.environ['AIRFLOW_HOME']
         
     def _is_age_restricted(self, video_url: str) -> bool:
         '''
@@ -49,8 +50,8 @@ class Ingest_YTB(Ingestion):
         pass
 
     def load(self, src_file_path: str, content_type=CONTENT_TYPE['mp4']):
-        file_name = f"{PREFIX[1]}_{get_base_name(src_file_path)}"
-        dest_blob_name = f"Video/{self.source}/{str(PREFIX[0])}/{file_name}"
+        file_name = f"{INGESTION_DATETIME}_{get_base_name(src_file_path)}"
+        dest_blob_name = f"Video/{self.source}/{INGESTION_DATE}/{file_name}"
         logging.info(f"destination_blob_name: {dest_blob_name}")
         return super().load(src_file_path, dest_blob_name, content_type)        
 

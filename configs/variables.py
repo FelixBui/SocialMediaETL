@@ -9,5 +9,3 @@ CONTENT_TYPE = {
     'json': 'application/json',
     'mp4': 'video/mp4'
 }
-### Airflow config:
-AIRFLOW_HOME = "/opt/airflow"

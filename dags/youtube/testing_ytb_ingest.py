@@ -1,17 +1,21 @@
+import os
 from datetime import datetime, date, timedelta
+
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.python_operator import PythonOperator
 
 from data.raw.youtube.ingest_ytb import Ingest_YTB
+from plugins.helpers.utils import clear_mp4_files
 
+AIRFLOW_HOME = os.environ['AIRFLOW_HOME']
 
 def testing():
-    import os
-    video_url = 'https://www.youtube.com/shorts/0Vf1TpucUss'
-    src_file_path = "/otp/airflow/0Vf1TpucUss.mp4"
+    video_url = 'https://www.youtube.com/watch?v=sgpaHhEt5b0'
+    src_file_path = f"{AIRFLOW_HOME}/{os.path.basename(video_url)}.mp4"
     ytb_loader = Ingest_YTB('youtube')
     ytb_loader.execute(video_url, src_file_path)
+    clear_mp4_files()
 
 default_args = {
     "owner": "longtp",
@@ -36,6 +40,6 @@ with dag:
     start_task = DummyOperator(task_id = "start")
     end_task = DummyOperator(task_id = "end")
 
-    test_ytb_ingest = PythonOperator(task_id = "hello_word", python_callable=testing)
-    start_task >> test_ytb_ingest >> end_task
+    test_ytb_ingest_task = PythonOperator(task_id = "test_ytb_ingest", python_callable=testing)
+    start_task >> test_ytb_ingest_task >> end_task
 
