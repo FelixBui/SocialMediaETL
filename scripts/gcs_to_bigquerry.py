@@ -16,12 +16,12 @@ storage_client = storage.Client(credentials=credentials)
 
 # Tên bucket và đường dẫn đến thư mục chứa các file JSON trên GCS
 project_id = "socialmediaetl-386712"
-folder_path = 'Metadata/Video/2023-6-14/'
+folder_path = 'Metadata/Thumbnail/2023-6-14/'
 bucket_name = 'video_storage_yt'
 
 # Tên dataset và bảng trong BigQuery
 dataset_id = 'socialmediaetl_dwh'
-table_id = 'Metadata_video_demo'
+table_id = 'Metadata_thumbnail_demo'
 
 # Lấy đối tượng bucket trên GCS
 bucket = storage_client.get_bucket(bucket_name)
@@ -35,43 +35,38 @@ for blob in blobs:
     # Kiểm tra nếu là file JSON
     if blob.name.endswith('.json'):
         # Đọc nội dung của file JSON
-        json_data = blob.download_as_text()
-        parsed_data = json.loads(json_data)
-        json.dumps(parsed_data)
-        print(type(parsed_data["Views"]))
+        uri=f"gs://video_storage_yt/{blob.name}"
+
         # Tạo đối tượng BigQuery DatasetReference
         dataset_ref = bq_client.dataset(dataset_id)
 
         # Tạo đối tượng BigQuery TableReference
         table_ref = dataset_ref.table(table_id)
-        print(table_ref)
+
         # Tạo đối tượng BigQuery LoadJobConfig
         job_config = bigquery.LoadJobConfig(
             schema=[
+                bigquery.SchemaField("ThumbnailID","STRING"),
                 bigquery.SchemaField("VideoID","STRING","NULLABLE"),
-                bigquery.SchemaField("ChannelID","STRING","NULLABLE"),
-                bigquery.SchemaField("Length","INTEGER","NULLABLE"),
-                bigquery.SchemaField("Publish_date","STRING","NULLABLE"),
-                bigquery.SchemaField("Title","STRING","NULLABLE"),
-                bigquery.SchemaField("Views","INTEGER","NULLABLE"),
-                bigquery.SchemaField("Description","STRING","NULLABLE"),
+                bigquery.SchemaField("URL","STRING","NULLABLE"),
+                bigquery.SchemaField("Width","INTEGER","NULLABLE"),
+                bigquery.SchemaField("Height","INTEGER","NULLABLE"),
                 bigquery.SchemaField("Timestamp","FLOAT","NULLABLE")
             ],
             source_format = bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
             write_disposition="WRITE_APPEND"
         )
         
-
         # Tạo job để load dữ liệu vào BigQuery
-        load_job = bq_client.load_table_from_json(parsed_data, table_ref, job_config=job_config)
+        load_job = bq_client.load_table_from_uri(uri, table_ref, job_config=job_config)
 
         # Chờ cho job hoàn thành
         
-
+        load_job.result()
         # Kiểm tra kết quả
         if load_job.state == 'DONE':
             print(f"Dữ liệu từ file {blob.name} đã được lưu vào BigQuery thành công.")
         else:
             print(f"Có lỗi xảy ra trong quá trình lưu dữ liệu từ file {blob.name} vào BigQuery.")
-        load_job.result()
+        
 
