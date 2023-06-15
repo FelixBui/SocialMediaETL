@@ -19,14 +19,18 @@ default_args = {
 
 # Define the function to retrieve video metadata and upload to GCS
 def retrieve_video_metadata():
-    search_list = Search('meme animals')
+    search_list = Search('meme')
+# search_list.get_next_results()
     for search in search_list.results:
         video_id=search.vid_info["videoDetails"]["videoId"]
         video_url=f"https://www.youtube.com/watch?v={video_id}"
-        metadata_video=Ingestion_Metadata_Video(video_url).execute()
-        metadata_channel=Ingestion_Metadata_Channel(video_url).execute()
-        metadata_caption=Ingestion_Metadata_Caption(video_url).execute()
-        metadata_thumbnail=Ingestion_Metadata_Thumbnail(video_url).execute()
+        try:
+            metadata_video=Ingestion_Metadata_Video(video_url).execute()
+            metadata_channel=Ingestion_Metadata_Channel(video_url).execute()
+            metadata_caption=Ingestion_Metadata_Caption(video_url).execute()
+            metadata_thumbnail=Ingestion_Metadata_Thumbnail(video_url).execute()
+        except: 
+            continue
 
     
 
