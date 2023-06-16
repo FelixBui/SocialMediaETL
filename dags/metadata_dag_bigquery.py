@@ -11,8 +11,12 @@ from data.transformed.youtube.load_metadata_caption_bigquery import *
 
 # Define the DAG arguments
 default_args = {
-    'owner': 'shenkedokato',
-    'start_date': datetime(2023, 1, 1),
+    "owner": "tmq",
+    "depends_on_past": False,
+    "email": ['shenkedokato@gmail.com'] ,
+    "sla": timedelta(hours=1),
+    'email_on_failure': False,
+    'email_on_retry': False,
 }
 
 # Define the function to retrieve video metadata and upload to GCS
@@ -23,7 +27,7 @@ def load_metadata_bigquery():
     load_metadata_caption_bigquery = Load_Metadata_Caption_Bigquery().execute()
 
 # Define the DAG
-with DAG('youtube_metadata_dag_bigquery', default_args=default_args, schedule_interval="@daily") as dag:
+with DAG(dag_id='youtube_metadata_dag_bigquery', default_args=default_args, schedule_interval="0 22 * * *",start_date=datetime(2023, 1, 3, 22, 0),catchup=False) as dag:
     # Define the task to retrieve video metadata and upload to GCS
     ingest_video = PythonOperator(
         task_id='load_video_metadata_bigquery',

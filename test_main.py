@@ -5,7 +5,7 @@
 # # video_url="https://www.youtube.com/watch?v=S4rNWqzwRTM"
 
 # from pytube import Search
-# search_list = Search('meme')
+# search_list = Search("meme")
 # # search_list.get_next_results()
 # for search in search_list.results:
 #     video_id=search.vid_info["videoDetails"]["videoId"]
@@ -20,8 +20,14 @@
 
 # from data.transformed.youtube.load_metadata_video_bigquery import *
 # from data.transformed.youtube.load_metadata_thumbnail_bigquery import *
+# from data.transformed.youtube.load_metadata_video_bigquery import *
+# from data.transformed.youtube.load_metadata_channel_bigquery import *
+# from data.transformed.youtube.load_metadata_thumbnail_bigquery import *
+# from data.transformed.youtube.load_metadata_caption_bigquery import *
 
-
-# load_metadata_video_bigquery = Load_Metadata_Thumbnail_Bigquery().execute()
+# load_metadata_video_bigquery = Load_Metadata_Video_Bigquery().execute()
+# load_metadata_channel_bigquery = Load_Metadata_Channel_Bigquery().execute()
+# load_metadata_thumbnail_bigquery = Load_Metadata_Thumbnail_Bigquery().execute()
+# load_metadata_caption_bigquery = Load_Metadata_Caption_Bigquery().execute()
 
 
