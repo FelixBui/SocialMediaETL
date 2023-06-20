@@ -5,7 +5,7 @@
 # # video_url="https://www.youtube.com/watch?v=S4rNWqzwRTM"
 
 # from pytube import Search
-# search_list = Search("meme")
+# search_list = Search("Alan Walker")
 # # search_list.get_next_results()
 # for search in search_list.results:
 #     video_id=search.vid_info["videoDetails"]["videoId"]
@@ -18,8 +18,6 @@
 #     except: 
 #         continue
 
-# from data.transformed.youtube.load_metadata_video_bigquery import *
-# from data.transformed.youtube.load_metadata_thumbnail_bigquery import *
 # from data.transformed.youtube.load_metadata_video_bigquery import *
 # from data.transformed.youtube.load_metadata_channel_bigquery import *
 # from data.transformed.youtube.load_metadata_thumbnail_bigquery import *

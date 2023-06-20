@@ -13,7 +13,7 @@ class Load_Metadata_Caption_Bigquery(Load_Metadata_Bigquery):
                 bigquery.SchemaField("Contents_caption_id","STRING","NULLABLE"),
                 bigquery.SchemaField("VideoID","STRING"),
                 bigquery.SchemaField("Language","STRING","NULLABLE"),
-                bigquery.SchemaField("Contents","STRING","NULLABLE"),
+                bigquery.SchemaField("Contents","JSON","NULLABLE"),
                 bigquery.SchemaField("Timestamp","FLOAT","NULLABLE")
             ],
             source_format = bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
