@@ -1,15 +1,4 @@
-# SocialMediaETL
-
-The purpose of this repo was to manage ETL projects
-
-## Installation
-
-```bash
-pip install -r requirements.txt
-mv .env_SAMPLE .env
-
-```
-
+# Social Media ETL
 ## Directory structure
 ```
 ----SocialMediaETL
@@ -36,20 +25,23 @@ mv .env_SAMPLE .env
         |---ytb
 ```
 """
-# Project Name
-
 ## Objective
 
-The objective of this project is to showcase your skills and demonstrate what you have learned throughout the development process. Additionally, the goal is to increase the value of the project by ensuring that other Data Engineering enthusiasts can easily rebuild the entire project on their own.
+The objective of this project is to showcase my skills and demonstrate what you have learned throughout the development process. Additionally, the goal is to increase the value of the project by ensuring that other Data Engineering enthusiasts can easily rebuild the entire project on their own.
 
 ## Summary
+The Social Media ETL project represents a end-to-end data engineering solution that automate the management and sharing of social media video contents. Powered by the advanced technologies offered by Google Cloud Platform (GCP), including Google Kubernetes Engine (GKE), Google Cloud Storage (GCS), BigQuery,etc.
 
-Provide a brief summary of the project, highlighting its main features and purpose.
+With Airflow deployed on GKE, the project achieves unparalleled scalability and maintainability, ensuring optimal performance at every step. Leveraging the power of BigQuery, Data Warehouse is much easiser to design, while Dbt enables efficient and seamless data transformation. Python and SQL serve as the project's backbone, facilitating its development and implementation with utmost precision.
 
+The entire workflow, spanning data extraction, video customization, and social media uploads, has been fully automated, reducing manual effort and enhancing operational efficiency. By successfully crafting a robust and efficient solution, the project epitomizes the author's deep understanding and mastery of the technologies involved, cementing their status as a true data engineering virtuoso.
 ## Table of Contents
 
 - [Architect](#architect)
 - [Build](#build)
+- - [Prerequisites](#prerequisites)
+- - [Setup](#setup-infrastructure)
+- - [CI/CD](#cicd)
 - [Roadmap](#roadmap)
 - [Author and Acknowledgement](#author-and-acknowledgement)
 

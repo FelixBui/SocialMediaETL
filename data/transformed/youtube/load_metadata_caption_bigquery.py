@@ -1,4 +1,4 @@
-from data.transformed.load_metadata_bigquery import *
+from data.upload.load_metadata_bigquery import *
 from configs.variables_1 import *
 from google.cloud import bigquery
 
