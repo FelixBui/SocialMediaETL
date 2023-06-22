@@ -14,7 +14,6 @@ default_args = {
     "owner": "tmq",
     "depends_on_past": False,
     "email": ['shenkedokato@gmail.com'] ,
-    "sla": timedelta(hours=1),
     'email_on_failure': False,
     'email_on_retry': False,
 }
