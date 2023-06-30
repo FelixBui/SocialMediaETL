@@ -55,12 +55,14 @@ Break down the steps required to set up the infrastructure and environment neces
 
 ### Prerequisites
 
-List the prerequisites or requirements needed before starting the build process.
+- GCP (Google Cloud Platform) active account
+- Python3 installed in your local machine
+- Github account
 
 ### Setup Infrastructure
 
 Explain how to set up the infrastructure, including any cloud services, databases, or other components required for the project. Include any necessary configuration files or scripts.
-
+1. Enable nesseser
 ### CI/CD
 
 <!-- Describe the Continuous Integration and Continuous Deployment (CI/CD) process for the project. Explain how changes are tested, built, and deployed to ensure a smooth development workflow. -->
