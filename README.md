@@ -67,11 +67,13 @@ Explain how to set up the infrastructure, including any cloud services, database
 
 <!-- Describe the Continuous Integration and Continuous Deployment (CI/CD) process for the project. Explain how changes are tested, built, and deployed to ensure a smooth development workflow. -->
 
-1. Continuous integration:
-    - Set up the environment on ubuntu and check the entire repository 
-        + `- uses: actions/checkout@v2`
-    - Install python version 3.9 
-        + 
+#### Continuous integration:
+- Set up the environment on ubuntu and check the entire repository 
+```
+- uses: actions/checkout@v2
+```
+- Install python version 3.9 
+        
 ```
 - name: Set up Python
 uses: actions/setup-python@v2
@@ -79,8 +81,8 @@ with:
 python-version: 3.9
 ```
 
-    - Install dependencies and pytest
-        + 
+- Install dependencies and pytest
+        
 ```
 - name: Install dependencies
 run: |
@@ -92,29 +94,29 @@ airflow db init
     - Execute test import and syntax using pytest
         tests\dags\test_import.py
         tests\dags\test_syntax.py
-        +
+        
 ```
 - name: Run tests
 run: |
 pytest
 ```
-2. Continuous delivery
-    - Set up the environment on ubuntu and check the entire repository
-        + 
+#### Continuous delivery
+- Set up the environment on ubuntu and check the entire repository
+        
 ```   
 - name: Checkout
 uses: actions/checkout@v3
 ```
-    - Set up gcloud CLI 
-        + 
+- Set up gcloud CLI 
+        
 ```    
 - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
 with:
 service_account_key: ${{ secrets.GCP_SA_KEY }}
 project_id: ${{ secrets.GCP_SA_PROJECT_ID }}
 ```
-    - get gke credentials
-        + 
+- get gke credentials
+        
 ```
 - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
 with:
@@ -122,8 +124,8 @@ cluster_name: ${{ env.GKE_CLUSTER }}
 location: ${{ env.GKE_ZONE }}
 credentials: ${{ secrets.GCP_SA_KEY }}
 ```
-    - deploy the dependencies in scheduler and worker pod
-        + 
+- deploy the dependencies in scheduler and worker pod
+        
 ```
 - name: Deploy
 run: |-
