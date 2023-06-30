@@ -69,48 +69,48 @@ Explain how to set up the infrastructure, including any cloud services, database
 
 1. Continuous integration:
     - Set up the environment on ubuntu and check the entire repository 
-    ('- uses: actions/checkout@v2')
+    '- uses: actions/checkout@v2'
     - Install python version 3.9 
-    ('- name: Set up Python 
+    '- name: Set up Python 
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9')
+        python-version: 3.9'
     - Install dependencies and pytest
-    ('- name: Install dependencies
+    '- name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install pytest
-        airflow db init')
+        airflow db init'
     - Execute test import and syntax using pytest
         tests\dags\test_import.py
         tests\dags\test_syntax.py
-    ('- name: Run tests
+    '- name: Run tests
       run: |
-        pytest')
+        pytest'
 2. Continuous delivery
     - Set up the environment on ubuntu and check the entire repository
-    ('- name: Checkout
-      uses: actions/checkout@v3')
+    '- name: Checkout
+      uses: actions/checkout@v3'
     - Set up gcloud CLI 
-    ('    - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+    '    - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
       with:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
-        project_id: ${{ secrets.GCP_SA_PROJECT_ID }}')
+        project_id: ${{ secrets.GCP_SA_PROJECT_ID }}'
     - get gke credentials
-    ('    - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+    '    - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-        credentials: ${{ secrets.GCP_SA_KEY }}')
+        credentials: ${{ secrets.GCP_SA_KEY }}'
     - deploy the dependencies in scheduler and worker pod
-    ('- name: Deploy
+    '- name: Deploy
       run: |-
         export SCHEDULER_POD=$(kubectl get pods -n airflow | grep scheduler | awk '{print $1}')
         export WORKER_POD=$(kubectl get pods -n airflow | grep worker | awk '{print $1}')
         export REQUIREMENTS=/opt/airflow/dags/repo/requirements.txt
         kubectl exec -it $WORKER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS
-        kubectl exec -it $SCHEDULER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS')
+        kubectl exec -it $SCHEDULER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS'
 ## Roadmap
 
 Outline potential future developments or enhancements that can be made to the project. This could include additional features, optimizations, or scalability improvements.
