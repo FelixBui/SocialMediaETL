@@ -67,7 +67,7 @@ Explain how to set up the infrastructure, including any cloud services, database
 
 <!-- Describe the Continuous Integration and Continuous Deployment (CI/CD) process for the project. Explain how changes are tested, built, and deployed to ensure a smooth development workflow. -->
 
-#### Continuous integration:
+1. Continuous integration:
 - Set up the environment on ubuntu and check the entire repository 
 ```
 - uses: actions/checkout@v2
@@ -91,16 +91,16 @@ pip install -r requirements.txt
 pip install pytest
 airflow db init
 ```
-    - Execute test import and syntax using pytest
-        tests\dags\test_import.py
-        tests\dags\test_syntax.py
+- Execute test import and syntax using pytest
+    tests\dags\test_import.py
+    tests\dags\test_syntax.py
         
 ```
 - name: Run tests
 run: |
 pytest
 ```
-#### Continuous delivery
+2. Continuous delivery
 - Set up the environment on ubuntu and check the entire repository
         
 ```   
