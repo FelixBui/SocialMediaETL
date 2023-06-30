@@ -76,20 +76,20 @@ Explain how to set up the infrastructure, including any cloud services, database
         
 ```
 - name: Set up Python
-uses: actions/setup-python@v2
-with:
-python-version: 3.9
+  uses: actions/setup-python@v2
+  with:
+    python-version: 3.9
 ```
 
 - Install dependencies and pytest
         
 ```
 - name: Install dependencies
-run: |
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-pip install pytest
-airflow db init
+  run: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    pip install pytest
+    airflow db init
 ```
 - Execute test import and syntax using pytest
     tests\dags\test_import.py
@@ -97,43 +97,43 @@ airflow db init
         
 ```
 - name: Run tests
-run: |
-pytest
+  run: |
+    pytest
 ```
 2. Continuous delivery
 - Set up the environment on ubuntu and check the entire repository
         
 ```   
 - name: Checkout
-uses: actions/checkout@v3
+  uses: actions/checkout@v3
 ```
 - Set up gcloud CLI 
         
 ```    
 - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
-with:
-service_account_key: ${{ secrets.GCP_SA_KEY }}
-project_id: ${{ secrets.GCP_SA_PROJECT_ID }}
+  with:
+    service_account_key: ${{ secrets.GCP_SA_KEY }}
+    project_id: ${{ secrets.GCP_SA_PROJECT_ID }}
 ```
 - Get gke credentials
         
 ```
 - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-with:
-cluster_name: ${{ env.GKE_CLUSTER }}
-location: ${{ env.GKE_ZONE }}
-credentials: ${{ secrets.GCP_SA_KEY }}
+  with:
+    cluster_name: ${{ env.GKE_CLUSTER }}
+    location: ${{ env.GKE_ZONE }}
+    credentials: ${{ secrets.GCP_SA_KEY }}
 ```
 - Deploy the dependencies in scheduler and worker pod
         
 ```
 - name: Deploy
-run: |-
-export SCHEDULER_POD=$(kubectl get pods -n airflow | grep scheduler | awk '{print $1}')
-export WORKER_POD=$(kubectl get pods -n airflow | grep worker | awk '{print $1}')
-export REQUIREMENTS=/opt/airflow/dags/repo/requirements.txt
-kubectl exec -it $WORKER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS
-kubectl exec -it $SCHEDULER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS
+  run: |-
+    export SCHEDULER_POD=$(kubectl get pods -n airflow | grep scheduler | awk '{print $1}')
+    export WORKER_POD=$(kubectl get pods -n airflow | grep worker | awk '{print $1}')
+    export REQUIREMENTS=/opt/airflow/dags/repo/requirements.txt
+    kubectl exec -it $WORKER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS
+    kubectl exec -it $SCHEDULER_POD -n airflow -- /home/airflow/.local/bin/pip install -r $REQUIREMENTS
 ```
 ## Roadmap
 
