@@ -115,7 +115,7 @@ with:
 service_account_key: ${{ secrets.GCP_SA_KEY }}
 project_id: ${{ secrets.GCP_SA_PROJECT_ID }}
 ```
-- get gke credentials
+- Get gke credentials
         
 ```
 - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
@@ -124,7 +124,7 @@ cluster_name: ${{ env.GKE_CLUSTER }}
 location: ${{ env.GKE_ZONE }}
 credentials: ${{ secrets.GCP_SA_KEY }}
 ```
-- deploy the dependencies in scheduler and worker pod
+- Deploy the dependencies in scheduler and worker pod
         
 ```
 - name: Deploy
