@@ -143,13 +143,13 @@ class Oracle2Csv:
         csv_writer_column.writerows([column_names])
         csv_file_conn.close()
 
-if __name__=="__main__":
-    oracle_db_user = "AP_BI"
-    oracle_db_pass = "__pass__"
-    oracle_db_dns = "DVNCL01-PROD.VN.PROD/HDWVN.HOMECREDIT.VN"
+if __name__ == "__main__":
+    oracle_db_user = ""
+    oracle_db_pass = ""
+    oracle_db_dns = ""
 
-    csv_file_name = "R0699_DAILY_ACC_MOVE_DETAILS.csv"
-    data_path = "/tmp"
-    sql_query = "SELECT * FROM AP_FIN_BI.R0699_DAILY_ACC_MOVE_DETAILS"
+    csv_file_name = ""
+    data_path = ""
+    sql_query = ""
     orc_extract = Oracle2Csv(csv_file_name, data_path, sql_query)
     orc_extract.execute()

@@ -8,11 +8,11 @@
     |   |---youtube
     |---data
     |   |---raw
-    |   |   |---source_1
-    |   |   |---source_2
+    |   |   |---tiktok
+    |   |   |---youtube
     |   |---transformed
-    |       |---source_1
-    |       |---source_2
+    |       |---tiktok
+    |       |---youtube
     |---factories
     |---plugins
     |   |---helpers
@@ -48,6 +48,10 @@ The entire workflow, spanning data extraction, video customization, and social m
 ## Architect
 
 In this section, describe the overall architecture of the project, including the pipeline and technologies used. Explain the rationale behind choosing each component and how they work together to achieve the desired outcome.
+1. Infrastructure: Google Cloud Platform
+2. Orchestration: Airflow
+3. Trasformation: DBT
+4. Data Warehouse: BigQuery
 
 ## Build
 
@@ -60,9 +64,7 @@ Break down the steps required to set up the infrastructure and environment neces
 - Github account
 
 ### Setup Infrastructure
-
-Explain how to set up the infrastructure, including any cloud services, databases, or other components required for the project. Include any necessary configuration files or scripts.
-1. Enable nesseser
+1. Enable necessery 
 ### CI/CD
 
 Describe the Continuous Integration and Continuous Deployment (CI/CD) process for the project. Explain how changes are tested, built, and deployed to ensure a smooth development workflow.
