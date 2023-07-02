@@ -64,10 +64,46 @@ Break down the steps required to set up the infrastructure and environment neces
 - Github account
 
 ### Setup Infrastructure
-1. Enable necessery 
-### CI/CD
+1. Enable necessery APIs on GCP: Kubernetes Enginer API, Compute Engine API, Cloud Logging API, Cloud Monitoring API, BigQuery API,...
+2. Set up your GKE cluster.
+Create a GKE cluster on GCP. Ensure you have the necessary permissions and access to the cluster.
+- Create namespace named airflow:
+```
+kubectl create namespace airflow
+```
+- Create necessery secret key:
+```
+kubectl create secret generic airflow-ssh-git-secret --from-file=gitSshKey={path to private ssh key} -n airflow
+``` 
 
-<!-- Describe the Continuous Integration and Continuous Deployment (CI/CD) process for the project. Explain how changes are tested, built, and deployed to ensure a smooth development workflow. -->
+3. Install Helm.
+Usually Helm is already installed GCP, check Helm version
+
+```
+helm version       
+```
+4. Add Airflow Helm repository and update repo to latest version.
+
+```
+helm repo add apache-airflow https://airflow.apache.org       
+```
+
+```
+helm repo update       
+```
+5. Install Airflow using Helm.
+- Prepare a customize values.yml
+- Deploy the Airflow application using the Helm chart by running the command
+```
+helm install airflow apache-airflow/airflow -f values.yml -n airflow
+```
+6. Access Airflow UI.
+- Using the Helm status command
+```
+helm status airflow
+```
+- Access Airflow UI: 
+### CI/CD
 
 1. Continuous integration:
 - Set up the environment on ubuntu and check the entire repository 
