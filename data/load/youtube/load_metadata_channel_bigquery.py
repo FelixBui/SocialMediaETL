@@ -1,5 +1,5 @@
 from data.load.load_metadata_bigquery import *
-from configs.variables_1 import *
+from configs.variables import *
 from google.cloud import bigquery
 
 class Load_Metadata_Channel_Bigquery(Load_Metadata_Bigquery):

@@ -1,5 +1,5 @@
 from data.transformed.ingestion_metadata import Ingestion_Metadata
-from configs.variables_1 import *
+from configs.variables import *
 import time
 class Ingestion_Metadata_Channel(Ingestion_Metadata):
     def __init__(self,video_id):
@@ -29,7 +29,7 @@ class Ingestion_Metadata_Channel(Ingestion_Metadata):
         data_list.append(data)
         return data_list
 
-    def load(self, data_list: list, folder = folder["fd_channel"], content_type = content_type["json"]):
+    def load(self, data_list: list, folder = folder["fd_channel"], content_type = CONTENT_TYPE["json"]):
         super().load(data_list,folder,content_type)
 
     def execute(self):

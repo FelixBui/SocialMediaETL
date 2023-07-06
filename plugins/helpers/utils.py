@@ -1,9 +1,9 @@
 import os
 import glob
 from google.oauth2.service_account import Credentials
-from google.cloud import storage
-from configs.variables import GCP_SA_KEY,YTB_BUCKET_NAME
-
+from google.cloud import storage,bigquery
+from configs.variables import GCP_SA_KEY,YTB_BUCKET_NAME,PROJECT_ID,DATASET_ID
+from datetime import datetime
 
 def get_gcp_creds() -> object:
     '''
@@ -45,3 +45,19 @@ def clear_mp4_files():
     mp4_list = glob.glob(airflow_home + "/*.mp4")
     for mp4 in mp4_list:
         os.remove(mp4)
+def datetime_now():
+    now = datetime.now()
+    day = now.day
+    month = now.month
+    year = now.year
+    return f"{year}-{month}-{day}"
+
+def get_bigquery_client() -> object:
+    credentials = get_gcp_creds()
+    bq_client = bigquery.Client(credentials=credentials,project=PROJECT_ID)
+    return bq_client
+def get_bigquery_dataset() -> object:
+    credentials = get_gcp_creds()
+    bq_client = bigquery.Client(credentials=credentials,project=PROJECT_ID)
+    dataset_ref = bq_client.dataset(DATASET_ID)    
+    return dataset_ref

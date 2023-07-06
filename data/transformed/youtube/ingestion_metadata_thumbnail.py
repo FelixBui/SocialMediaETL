@@ -1,5 +1,5 @@
 from data.transformed.ingestion_metadata import Ingestion_Metadata
-from configs.variables_1 import *
+from configs.variables import *
 import time
 
 class Ingestion_Metadata_Thumbnail(Ingestion_Metadata):
@@ -36,7 +36,7 @@ class Ingestion_Metadata_Thumbnail(Ingestion_Metadata):
             data_list.append(data)
         return data_list
 
-    def load(self, data_list: list, folder = folder["fd_thumbnail"], content_type = content_type["json"]):
+    def load(self, data_list: list, folder = folder["fd_thumbnail"], content_type = CONTENT_TYPE["json"]):
         super().load(data_list,folder,content_type)
     
     def execute(self):

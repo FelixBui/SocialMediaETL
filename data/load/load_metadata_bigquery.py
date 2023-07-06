@@ -2,8 +2,7 @@
 from data.socialmediaetl_base import SocialMediaETL
 from plugins.helpers.utils import *
 import json
-from plugins.helpers.utils1 import *
-from configs.variables_1 import *
+from configs.variables import *
 
 class Load_Metadata_Bigquery(SocialMediaETL):
     def __init__(self):
