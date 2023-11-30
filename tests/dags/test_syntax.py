@@ -18,6 +18,6 @@ def test_dag_syntax():
         for dag_name in failed_dags:
             print("- " + dag_name)
     else:
-        print("All DAGs passed syntax check.")
+        print("All DAGs passed syntax check!")
 
 test_dag_syntax()
